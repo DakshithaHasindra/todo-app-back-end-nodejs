@@ -20,7 +20,6 @@ const taskSchema = mongoose.Schema(
             required: false
         }
     },
-
     {
         timestamp : true
     }
