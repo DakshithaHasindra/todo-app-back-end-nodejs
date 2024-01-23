@@ -63,6 +63,22 @@ app.get('/tasks/:id', async (req, res) => {
     }
 });
 
+app.delete('/tasks/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const product = await Product.findByIdAndDelete(id);
+        if(!product ){
+            return res.status(404).json({ message:`cannot find the product with ID ${id}`})
+        }else{
+             res.status(200);
+             res.send();
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 mongoose.set("strictQuery", false);
 mongoose.connect('mongodb://localhost:27017/todo-app-nodejs')
