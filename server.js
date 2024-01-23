@@ -34,6 +34,23 @@ app.get('/tasks', async (req, res) => {
     }
 });
 
+app.patch('/tasks/:id', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const product = await Product.findByIdAndUpdate(id, req.body);
+        if(!product){
+            return res.status(404).json({ message : `cannot find the product with ID ${id}`});
+        }else{
+           const updatedProduct =await Product.findById(id);
+            return res.status(200).json(updatedProduct);
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+})
+
 
 app.get('/tasks/:id', async (req, res) => {
     try {
